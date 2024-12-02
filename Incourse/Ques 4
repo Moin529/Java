@@ -1,0 +1,63 @@
+Given the following scenario, design a UML diagram and state a follow-up rationale explaining your design. This problem requires, identifying proper classes, class members, and their in-between relationships. For methods, it is important to identify the parameters.
+
+A mobile application is being developed that deals with plant identification problem. To represent a plant the system requires five pieces of information: Description of roots(2 types - Upper Root, Lower Root), Description of bodies (2 types - Thick and Thin), Description of Plants(3 types - Green, Red and Yellow), Name (string data type) and an Image. The system demands a mechanism to enter plant information into the database. Inserting an image representing a plant is optional. There should be two types of search features: Name-based searching and image processing-based searching. For printing each result there should be a method.
+
+                                             --------------
+                                             |  SOLUTION  |
+                                             --------------
+
+                                +-----------------------------+
+                                |        <<abstract>>         |
+				|          Plant              |
+				+-----------------------------+
+				| - name: String              |
+				| - rootDescription: String   |
+				| - bodyDescription: String   |
+				| - plantType: String         |
+				| - image: String (optional)  |
+				+-----------------------------+
+				| + insertPlantInfo(): void   |
+				| + printResult(): void       |
+				+-----------------------------+
+
+					      .
+					     /|\    
+					      |
+			   +-------------------------------------+
+			   |        <<concrete>>                 |
+			   |        PlantDatabase                |
+			   +-------------------------------------+
+			   | + addPlant(p: Plant): void          |
+			   | + searchByName(n: String): Plant    |
+			   | + searchByImage(img: String): Plant |
+			   +-------------------------------------+
+			   
+
+
+Rationale Behind Design:
+-----------------------
+Class Identification:
+1. Plant (abstract class):
+	This class holds the basic structure for a plant object with essential attributes like:
+		->Name (String): The plant's name.
+		->rootDescription (String): Root types, either "Upper Root" or "Lower Root."
+		->bodyDescription (String): Body descriptions, either "Thick" or "Thin."
+		->plantType (String): Describes plant types: Green, Red, or Yellow.
+		->image (String): Optional image representing the plant.
+
+	The class defines two methods:
+		->insertPlantInfo(): A method to enter plant information into the system.
+		->printResult(): Prints the plant's details in a formatted way.
+2. PlantDatabase (concrete class):
+
+	Manages a collection of plants with functions:
+		->addPlant(): Adds a new plant object to the database.
+		->searchByName(): Searches the database by plant name.
+		->searchByImage(): Uses an image for searching the database.
+3. Relationships:
+	->Generalization: The PlantDatabase interacts with Plant objects.
+	->Method parameters: Each method that performs operations such as adding a plant or searching for a plant accepts either a Plant object or a String.
+4. Design Decisions:
+	->Abstract class for Plant: Since the primary focus is on maintaining a basic template, we ensure extensibility in future iterations.
+	->Concrete class for database: Separating the database logic keeps the design clean and adheres to single-responsibility principles.
+
