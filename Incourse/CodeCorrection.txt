@@ -1,0 +1,18 @@
+Identify the issues with the program and present the rationale behind it:
+
+public interface A{
+    public void printA();
+}
+class Simple extends A{
+    int x = 10;
+    static void access(){
+        System.out.println("x = " + x);
+    }
+    abstract void simplePrint();
+}
+
+public class CodeProblem{
+    public void main(String [] args){
+        Simple x = new Simple();
+    }
+}
